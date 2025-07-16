@@ -9,3 +9,15 @@ export async function searchTitle(searchedTitle) {
 
 	return data;
 }
+
+export async function getTitleDetails(titleId) {
+	const response = await fetch(`/api/details?titleId=${titleId}`);
+
+	if (!response.ok) {
+		throw new Error("Erro ao buscar detalhes");
+	}
+
+	const data = await response.json();
+
+	return data;
+}
