@@ -39,7 +39,7 @@ export default function Home() {
 	};
 
 	return (
-		<div className="flex flex-col justify-items-center bg-gray-100">
+		<div className="flex flex-col justify-items-center bg-gray-100 min-h-screen">
 			<Header />
 			<div
 				className="flex flex-col text-center mt-16 pt-4 pb-6 gap-2 bg-gray-800"
