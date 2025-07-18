@@ -14,23 +14,23 @@ export default function Home() {
 	const [loading, setLoading] = useState(false);
 	const [titles, setTitles] = useState([]);
 
+	const useMock = false;
+
 	const handleSearch = async () => {
 		if (searchValue && searchValue !== searchedTitle && !loading) {
 			try {
 				setLoading(true);
-				// const data = await searchTitle(searchValue);
+				const data = useMock ? mockedTitles : await searchTitle(searchValue);
 				setSearchedTitle(searchValue);
 				setLoading(false);
-				const data = mockedTitles;
 
-				// const orderedTitles = data.title_results.sort((a, b) => {
-				// 	if (!a.year) return 1;
-				// 	if (!b.year) return -1;
-				// 	return a.year - b.year;
-				// });
+				const orderedTitles = data.title_results.sort((a, b) => {
+					if (!a.year) return 1;
+					if (!b.year) return -1;
+					return a.year - b.year;
+				});
 
-				// setTitles(orderedTitles);
-				setTitles(data.results);
+				setTitles(orderedTitles);
 			} catch (error) {
 				setLoading(false);
 				console.error(error.message);
@@ -63,8 +63,11 @@ export default function Home() {
 						<div className="my-6">
 							<Text fontSize="lg" className="text-gray-900">
 								Exibindo{" "}
-								<span className="font-bold text-primary">5 resultados</span>{" "}
-								para <span className="italic text-primary">"breaking bad"</span>
+								<span className="font-bold text-primary">
+									{titles.length} resultados
+								</span>{" "}
+								para{" "}
+								<span className="italic text-primary">"{searchedTitle}"</span>
 							</Text>
 							<Text className="text-gray-400">
 								Clique nos itens para exibir as opções de streaming

@@ -11,6 +11,7 @@ const Header = () => (
 				</Heading>
 			</div>
 			<Button
+				borderRadius="md"
 				variant="outline"
 				fontWeight="bold"
 				color="white"

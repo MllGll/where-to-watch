@@ -24,11 +24,12 @@ const TitleCard = ({ title }) => {
 	const [details, setDetails] = useState([]);
 	const [openDetails, setOpenDetails] = useState(false);
 
+	const useMock = false;
+
 	const handleDetail = async () => {
 		try {
-			// const res = await getTitleDetails(title.id);
-			setDetails(mockedTitle);
-			console.log(mockedTitle);
+			const data = useMock ? mockedTitle : await getTitleDetails(title.id);
+			setDetails(data);
 			setOpenDetails(true);
 		} catch (error) {
 			console.error(error.message);
