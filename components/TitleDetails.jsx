@@ -72,11 +72,7 @@ const STREAMING_SERVICES = {
 };
 
 const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
-	<Flex
-		direction="column"
-		align={align}
-		textAlign={textAlign}
-	>
+	<Flex direction="column" align={align} textAlign={textAlign}>
 		<Text
 			fontWeight="semibold"
 			fontSize={{ base: "2xl", md: "4xl", lg: "7xl" }}
@@ -85,10 +81,7 @@ const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
 		>
 			{title?.title}
 		</Text>
-		<HStack
-			mb={2}
-			separator={<span className="text-gray-200 px-2">•</span>}
-		>
+		<HStack mb={2} separator={<span className="text-gray-200 px-2">•</span>}>
 			{title?.year && (
 				<Text color="gray.200" fontSize={{ base: "md", md: "lg" }}>
 					{title.year}
@@ -96,8 +89,8 @@ const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
 			)}
 			{title?.runtime_minutes && (
 				<Text color="gray.200" fontSize={{ base: "md", md: "lg" }}>
-					{Math.floor(title.runtime_minutes / 60)}h{" "}
-					{title.runtime_minutes % 60}m
+					{Math.floor(title.runtime_minutes / 60)}h {title.runtime_minutes % 60}
+					m
 				</Text>
 			)}
 			{title?.us_rating && (
@@ -137,7 +130,7 @@ const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
 						{title.critic_score}%
 					</Text>
 					<Text color="gray.300" fontSize="sm">
-						Critics
+						Crítica
 					</Text>
 				</HStack>
 			)}
@@ -327,11 +320,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 							zIndex={3}
 							p={{ base: 4, lg: 6 }}
 						>
-							<TitleInfo
-								title={title}
-								textAlign="center"
-								align="center"
-							/>
+							<TitleInfo title={title} textAlign="center" align="center" />
 						</Flex>
 					)}
 				</Box>

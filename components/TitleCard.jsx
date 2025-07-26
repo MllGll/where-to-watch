@@ -1,6 +1,6 @@
 import { getTitleDetails } from "@/app/api";
 import mockedTitle from "@/mocks/title";
-import { Card, Text } from "@chakra-ui/react";
+import { Box, Card, Center, Spinner, Text } from "@chakra-ui/react";
 import { Fragment, useState } from "react";
 import TitleDetails from "./TitleDetails";
 
@@ -22,16 +22,24 @@ const typeBgColor = {
 
 const TitleCard = ({ title }) => {
 	const [details, setDetails] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const [openDetails, setOpenDetails] = useState(false);
+	const [clickedTitleId, setClickedTitleId] = useState();
 
 	const useMock = false;
 
 	const handleDetail = async () => {
+		setClickedTitleId(title.id);
 		try {
+			setLoading(true);
 			const data = useMock ? mockedTitle : await getTitleDetails(title.id);
 			setDetails(data);
 			setOpenDetails(true);
+			setLoading(false);
+			setClickedTitleId(null);
 		} catch (error) {
+			setLoading(false);
+			setClickedTitleId(null);
 			console.error(error.message);
 		}
 	};
@@ -43,7 +51,7 @@ const TitleCard = ({ title }) => {
 				onClick={handleDetail}
 				aspectRatio={2 / 3}
 				overflow="hidden"
-				className="bg-gray-200 border-0 transition-all duration-300 ease-in-out hover:shadow-lg hover:bg-gray-50 rounded-2xl"
+				className={`bg-gray-200 border-0 transition-all duration-300 ease-in-out hover:shadow-lg hover:bg-gray-50 rounded-2xl ${loading && clickedTitleId === title.id ? "pointer-events-none" : ""}`}
 			>
 				<div
 					className={`w-full absolute text-center ${typeBgColor[title.type]}`}
@@ -58,6 +66,19 @@ const TitleCard = ({ title }) => {
 						{title.year}
 					</Card.Description>
 				</Card.Body>
+				{loading && clickedTitleId === title.id && (
+					<Box pos="absolute" inset="0" bg="bg/80">
+						<Center h="full">
+							<Spinner
+								size="xl"
+								color="gray.800"
+								css={{ "--spinner-track-color": "colors.gray.200" }}
+								borderWidth="4px"
+								animationDuration="0.8s"
+							/>
+						</Center>
+					</Box>
+				)}
 			</Card.Root>
 			<TitleDetails
 				open={openDetails}

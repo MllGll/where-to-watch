@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Search from "@/components/Search";
 import TitleCard from "@/components/TitleCard";
 import mockedTitles from "@/mocks/titles";
-import { EmptyState, Grid, Text, VStack } from "@chakra-ui/react";
+import { EmptyState, Grid, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { Fragment, useState } from "react";
 import { searchTitle } from "./api";
 
@@ -58,29 +58,41 @@ export default function Home() {
 				/>
 			</div>
 			<div className="px-32 pb-24">
-				{Boolean(titles.length) && (
+				{(Boolean(titles.length) || loading) && (
 					<Fragment>
 						<div className="my-6">
-							<Text fontSize="lg" className="text-gray-900">
-								Exibindo{" "}
-								<span className="font-bold text-primary">
-									{titles.length} resultados
-								</span>{" "}
-								para{" "}
-								<span className="italic text-primary">"{searchedTitle}"</span>
-							</Text>
-							<Text className="text-gray-400">
-								Clique nos itens para exibir as opções de streaming
-							</Text>
+							<Skeleton loading={loading}>
+								<Text fontSize="lg" className="text-gray-900">
+									Exibindo{" "}
+									<span className="font-bold text-primary">
+										{titles.length} resultados
+									</span>{" "}
+									para{" "}
+									<span className="italic text-primary">"{searchedTitle}"</span>
+								</Text>
+							</Skeleton>
+							<Skeleton loading={loading}>
+								<Text className="text-gray-400">
+									Clique nos itens para exibir as opções de streaming
+								</Text>
+							</Skeleton>
 						</div>
 
 						<Grid
-							templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(6, 1fr)" }}
+							templateColumns={{
+								base: "repeat(2, 1fr)",
+								md: "repeat(6, 1fr)",
+							}}
 							gap={8}
 						>
-							{titles.map((title) => (
-								<TitleCard title={title} key={title.id} />
-							))}
+							{loading
+								? Array.from({ length: 6 }).map((_, index) => (
+										// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+										<Skeleton key={index} aspectRatio={2 / 3} />
+									))
+								: titles.map((title) => (
+										<TitleCard title={title} key={title.id} />
+									))}
 						</Grid>
 					</Fragment>
 				)}
@@ -100,6 +112,17 @@ export default function Home() {
 					</EmptyState.Root>
 				)}
 			</div>
+			<footer className="text-gray-400 absolute bottom-2 w-full text-center text-sm">
+				Desenvolvido por Marcello Gallante. Dados de streaming fornecidos pela{" "}
+				<a
+					href="https://watchmode.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="font-bold"
+				>
+					Watchmode.com
+				</a>
+			</footer>
 		</div>
 	);
 }
