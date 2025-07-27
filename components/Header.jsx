@@ -1,5 +1,8 @@
-import { Button, Heading } from "@chakra-ui/react";
+"use client";
+
+import { Heading } from "@chakra-ui/react";
 import { LuMonitorSmartphone } from "react-icons/lu";
+import RateLimitCounter from "./RateLimitCounter";
 
 const Header = () => (
 	<div className="fixed top-0 left-0 w-full h-16 px-32 bg-gray-900 shadow-lg z-50">
@@ -10,15 +13,7 @@ const Header = () => (
 					Onde Assistir...
 				</Heading>
 			</div>
-			<Button
-				borderRadius="md"
-				variant="outline"
-				fontWeight="bold"
-				color="white"
-				className="text-xl hover:text-gray-900"
-			>
-				API Key
-			</Button>
+			<RateLimitCounter />
 		</div>
 	</div>
 );

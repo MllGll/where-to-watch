@@ -246,7 +246,6 @@ const TitleDetails = ({ open, setOpen, title }) => {
 
 	const groupedSources = groupStreamingOptions(title?.sources);
 
-	// Determinar qual poster usar (prioridade: posterLarge > posterMedium > poster)
 	const posterUrl = title?.posterLarge || title?.posterMedium || title?.poster;
 	const hasPoster = Boolean(posterUrl);
 

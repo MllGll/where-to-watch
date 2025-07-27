@@ -2,6 +2,7 @@ import { getTitleDetails } from "@/app/api";
 import mockedTitle from "@/mocks/title";
 import { Box, Card, Center, Spinner, Text } from "@chakra-ui/react";
 import { Fragment, useState } from "react";
+import { useRateLimit } from "./RateLimitContext";
 import TitleDetails from "./TitleDetails";
 
 const titleTypes = {
@@ -27,12 +28,13 @@ const TitleCard = ({ title }) => {
 	const [clickedTitleId, setClickedTitleId] = useState();
 
 	const useMock = false;
+	const { setRateLimit } = useRateLimit();
 
 	const handleDetail = async () => {
 		setClickedTitleId(title.id);
 		try {
 			setLoading(true);
-			const data = useMock ? mockedTitle : await getTitleDetails(title.id);
+			const data = useMock ? mockedTitle : await getTitleDetails(title.id, setRateLimit);
 			setDetails(data);
 			setOpenDetails(true);
 			setLoading(false);

@@ -14,5 +14,18 @@ export async function GET(request) {
 	}
 
 	const data = await response.json();
-	return new Response(JSON.stringify(data), { status: 200 });
+
+	const limit = response.headers.get("X-RateLimit-Limit");
+	const remaining = response.headers.get("X-RateLimit-Remaining");
+	const reset = response.headers.get("X-RateLimit-Reset");
+
+	return new Response(JSON.stringify(data), {
+		status: 200,
+		headers: {
+			"Content-Type": "application/json",
+			...(limit && { "X-RateLimit-Limit": limit }),
+			...(remaining && { "X-RateLimit-Remaining": remaining }),
+			...(reset && { "X-RateLimit-Reset": reset }),
+		},
+	});
 }

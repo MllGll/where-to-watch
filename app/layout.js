@@ -1,5 +1,6 @@
 import { Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
+import { RateLimitProvider } from "../components/RateLimitContext";
 import { Provider } from "../components/ui/provider";
 
 const geistMono = Geist_Mono({
@@ -28,7 +29,9 @@ export default function RootLayout({ children }) {
           antialiased font-sans
         `}
 			>
-				<Provider>{children}</Provider>
+				<RateLimitProvider>
+					<Provider>{children}</Provider>
+				</RateLimitProvider>
 			</body>
 		</html>
 	);

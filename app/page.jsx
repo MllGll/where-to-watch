@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "@/components/Header";
+import { useRateLimit } from "@/components/RateLimitContext";
 import Search from "@/components/Search";
 import TitleCard from "@/components/TitleCard";
 import mockedTitles from "@/mocks/titles";
@@ -15,12 +16,15 @@ export default function Home() {
 	const [titles, setTitles] = useState([]);
 
 	const useMock = false;
+	const { setRateLimit } = useRateLimit();
 
 	const handleSearch = async () => {
 		if (searchValue && searchValue !== searchedTitle && !loading) {
 			try {
 				setLoading(true);
-				const data = useMock ? mockedTitles : await searchTitle(searchValue);
+				const data = useMock
+					? mockedTitles
+					: await searchTitle(searchValue, setRateLimit);
 				setSearchedTitle(searchValue);
 				setLoading(false);
 
