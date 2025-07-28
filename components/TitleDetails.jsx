@@ -82,7 +82,10 @@ const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
 		>
 			{title?.title}
 		</Text>
-		<HStack mb={2} separator={<span className="text-gray-200 px-2">•</span>}>
+		<HStack
+			mb={(title?.year || title?.runtime_minutes || title?.us_rating) && 2}
+			separator={<span className="text-gray-200 px-2">•</span>}
+		>
 			{title?.year && (
 				<Text color="gray.200" fontSize={{ base: "md", md: "lg" }}>
 					{title.year}
@@ -107,8 +110,7 @@ const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
 				</Badge>
 			)}
 		</HStack>
-		{/* Avaliações */}
-		<HStack spacing={4} mb={3}>
+		<HStack spacing={4} mb={(title?.user_rating || title?.critic_score) && 3}>
 			{title?.user_rating && (
 				<HStack spacing={1}>
 					<Text color="yellow.400" fontSize="lg">
@@ -301,7 +303,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 								<Image
 									src={posterUrl}
 									alt={title?.title}
-									w={{ base: "200px", md: "250px" }}
+									w={{ base: "150px", md: "250px" }}
 									h="auto"
 									boxShadow="2xl"
 									borderRadius="2xl"
