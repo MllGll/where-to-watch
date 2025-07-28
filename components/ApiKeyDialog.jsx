@@ -79,7 +79,7 @@ export default function ApiKeyDialog({
 
 	return (
 		<DialogRoot open={isOpen} onOpenChange={onClose} size="lg">
-			<DialogContent p={6}>
+			<DialogContent p={6} className="mx-4">
 				<DialogTitle fontWeight="bold" fontSize="xl">
 					Chave de API
 				</DialogTitle>
@@ -102,8 +102,8 @@ export default function ApiKeyDialog({
 						<LuExternalLink />
 					</Link>
 				</HStack>
-				<Grid templateColumns="repeat(10, 1fr)" gap="4">
-					<GridItem colSpan={8}>
+				<Grid templateColumns="repeat(10, 1fr)" gap="2">
+					<GridItem colSpan={window.innerWidth < 768 ? 10 : 8}>
 						<Input
 							placeholder="Insira sua chave Watchmode aqui"
 							value={inputKey}
@@ -113,7 +113,7 @@ export default function ApiKeyDialog({
 							autoComplete="off"
 						/>
 					</GridItem>
-					<GridItem colSpan={2}>
+					<GridItem colSpan={window.innerWidth < 768 ? 10 : 2}>
 						<Button
 							onClick={handleValidateAndSave}
 							loading={loading}
@@ -124,7 +124,7 @@ export default function ApiKeyDialog({
 						</Button>
 					</GridItem>
 				</Grid>
-				<Status.Root colorPalette="blue" mt={2}>
+				<Status.Root colorPalette="blue" mt={2} className="items-baseline">
 					<Status.Indicator className="animate-status-pulse" />
 					{currentKeyType === "custom"
 						? "No momento você está usando uma chave privada"

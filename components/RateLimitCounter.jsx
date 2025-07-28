@@ -36,10 +36,15 @@ export default function RateLimitCounter() {
 					display="flex"
 					gap={4}
 				>
-					<span>Uso:</span>
+					<span className="hidden lg:inline">Uso:</span>
 					{used != null && limit != null ? `${used}/${limit}` : "-/-"}
 					{keyType === "custom" && (
-						<Badge variant="solid" colorPalette="purple" fontSize="0.8em">
+						<Badge
+							variant="solid"
+							colorPalette="purple"
+							fontSize="0.8em"
+							className="hidden lg:flex"
+						>
 							Chave customizada
 						</Badge>
 					)}

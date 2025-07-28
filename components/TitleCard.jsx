@@ -27,14 +27,16 @@ const TitleCard = ({ title }) => {
 	const [openDetails, setOpenDetails] = useState(false);
 	const [clickedTitleId, setClickedTitleId] = useState();
 
-	const useMock = false;
+	const useMock = true;
 	const { setRateLimit } = useRateLimit();
 
 	const handleDetail = async () => {
 		setClickedTitleId(title.id);
 		try {
 			setLoading(true);
-			const data = useMock ? mockedTitle : await getTitleDetails(title.id, setRateLimit);
+			const data = useMock
+				? mockedTitle
+				: await getTitleDetails(title.id, setRateLimit);
 			setDetails(data);
 			setOpenDetails(true);
 			setLoading(false);

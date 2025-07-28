@@ -12,7 +12,6 @@ import {
 	Image,
 	Text,
 } from "@chakra-ui/react";
-import { FaPlay } from "react-icons/fa";
 import {
 	SiAppletv,
 	SiHbo,
@@ -77,7 +76,7 @@ const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
 			fontWeight="semibold"
 			fontSize={{ base: "2xl", md: "4xl", lg: "7xl" }}
 			color="white"
-			mb={10}
+			className="mb-2 lg:mb-10"
 		>
 			{title?.title}
 		</Text>
@@ -253,13 +252,13 @@ const TitleDetails = ({ open, setOpen, title }) => {
 		<DialogRoot
 			open={open}
 			onOpenChange={(e) => setOpen(e.open)}
-			size="cover"
+			size={window.innerWidth < 768 ? "lg" : "cover"}
 			motionPreset="slide-in-bottom"
 		>
-			<DialogContent overflow="auto">
+			<DialogContent overflow="auto" className="m-4">
 				<Box
 					position="relative"
-					h={{ base: "280px", lg: "50%" }}
+					h={{ base: "50vh", lg: "50%" }}
 					w="full"
 					overflow="hidden"
 				>
@@ -292,7 +291,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 							p={{ base: 4, lg: 6 }}
 							gap={6}
 						>
-							<Box flexShrink={0} mb={{ base: 4, md: 0 }}>
+							<Box flexShrink={0}>
 								<Image
 									src={posterUrl}
 									alt={title?.title}
@@ -324,7 +323,12 @@ const TitleDetails = ({ open, setOpen, title }) => {
 					)}
 				</Box>
 				<div className="flex-col text-center bg-gray-100 h-[50%] px-6 pb-6">
-					<Text textStyle="2xl" fontWeight="bold" py={8} w="full">
+					<Text
+						fontWeight="bold"
+						py={8}
+						w="full"
+						className="text-lg lg:text-2xl"
+					>
 						{groupedSources.length
 							? "Disponível nas plataformas de Streaming"
 							: "Não disponível em nenhuma plataforma de Streaming"}

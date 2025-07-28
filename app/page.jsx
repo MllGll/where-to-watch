@@ -15,7 +15,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(false);
 	const [titles, setTitles] = useState([]);
 
-	const useMock = false;
+	const useMock = true;
 	const { setRateLimit } = useRateLimit();
 
 	const handleSearch = async () => {
@@ -46,13 +46,13 @@ export default function Home() {
 		<div className="flex flex-col justify-items-center bg-gray-100 min-h-screen">
 			<Header />
 			<div
-				className="flex flex-col text-center mt-16 pt-4 pb-6 gap-2 bg-gray-800"
+				className="flex flex-col text-center mt-16 pt-6 pb-6 gap-2 bg-gray-800"
 				style={{
 					boxShadow:
 						"inset 0 -10px 15px -3px #0000001a, inset 0 -4px 6px -4px #0000001a",
 				}}
 			>
-				<Text fontSize="2xl" className="text-gray-300" fontWeight="semibold">
+				<Text className="text-gray-300 px-4 text-sm lg:text-2xl font-semibold hidden lg:inline">
 					Encontre as opções de streaming para filmes e séries
 				</Text>
 				<Search
@@ -61,7 +61,7 @@ export default function Home() {
 					loading={loading}
 				/>
 			</div>
-			<div className="px-32 pb-24">
+			<div className="px-4 lg:px-32 pb-24">
 				{(Boolean(titles.length) || loading) && (
 					<Fragment>
 						<div className="my-6">
@@ -76,7 +76,7 @@ export default function Home() {
 								</Text>
 							</Skeleton>
 							<Skeleton loading={loading}>
-								<Text className="text-gray-400">
+								<Text className="text-gray-400 text-sm lg:text-base">
 									Clique nos itens para exibir as opções de streaming
 								</Text>
 							</Skeleton>
@@ -87,7 +87,7 @@ export default function Home() {
 								base: "repeat(2, 1fr)",
 								md: "repeat(6, 1fr)",
 							}}
-							gap={8}
+							className="gap-4 lg:gap-8"
 						>
 							{loading
 								? Array.from({ length: 6 }).map((_, index) => (
@@ -116,7 +116,7 @@ export default function Home() {
 					</EmptyState.Root>
 				)}
 			</div>
-			<footer className="text-gray-400 absolute bottom-2 w-full text-center text-sm">
+			<footer className="text-gray-400 absolute bottom-2 w-full text-center text-xs lg:text-sm px-4">
 				Desenvolvido por Marcello Gallante. Dados de streaming fornecidos pela{" "}
 				<a
 					href="https://watchmode.com"
