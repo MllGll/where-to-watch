@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
 	DialogCloseTrigger,
@@ -256,12 +256,12 @@ const TitleDetails = ({ open, setOpen, title }) => {
 			onOpenChange={(e) => setOpen(e.open)}
 			size={
 				typeof window !== "undefined" && window.innerWidth < 768
-					? "lg"
+					? "full"
 					: "cover"
 			}
 			motionPreset="slide-in-bottom"
 		>
-			<DialogContent overflow="auto" className="m-4">
+			<DialogContent overflow="auto">
 				<Box
 					position="relative"
 					h={{ base: "50vh", lg: "50%" }}
@@ -328,7 +328,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 						</Flex>
 					)}
 				</Box>
-				<div className="flex-col text-center bg-gray-100 h-[50%] px-6 pb-6">
+				<div className="flex-col text-center bg-gray-100 h-[50vh] lg:h-[50%] px-6 pb-6">
 					<Text
 						fontWeight="bold"
 						py={8}
