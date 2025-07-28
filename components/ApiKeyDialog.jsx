@@ -103,7 +103,7 @@ export default function ApiKeyDialog({
 					</Link>
 				</HStack>
 				<Grid templateColumns="repeat(10, 1fr)" gap="2">
-					<GridItem colSpan={window && window.innerWidth < 768 ? 10 : 8}>
+					<GridItem colSpan={typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 8}>
 						<Input
 							placeholder="Insira sua chave Watchmode aqui"
 							value={inputKey}
@@ -113,7 +113,7 @@ export default function ApiKeyDialog({
 							autoComplete="off"
 						/>
 					</GridItem>
-					<GridItem colSpan={window && window.innerWidth < 768 ? 10 : 2}>
+					<GridItem colSpan={typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 2}>
 						<Button
 							onClick={handleValidateAndSave}
 							loading={loading}
