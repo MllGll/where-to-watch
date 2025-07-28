@@ -27,7 +27,7 @@ const TitleCard = ({ title }) => {
 	const [openDetails, setOpenDetails] = useState(false);
 	const [clickedTitleId, setClickedTitleId] = useState();
 
-	const useMock = true;
+	const useMock = false;
 	const { setRateLimit } = useRateLimit();
 
 	const handleDetail = async () => {

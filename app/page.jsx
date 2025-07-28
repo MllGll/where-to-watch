@@ -15,7 +15,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(false);
 	const [titles, setTitles] = useState([]);
 
-	const useMock = true;
+	const useMock = false;
 	const { setRateLimit } = useRateLimit();
 
 	const handleSearch = async () => {
