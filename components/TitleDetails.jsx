@@ -252,7 +252,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 		<DialogRoot
 			open={open}
 			onOpenChange={(e) => setOpen(e.open)}
-			size={window.innerWidth < 768 ? "lg" : "cover"}
+			size={window && window.innerWidth < 768 ? "lg" : "cover"}
 			motionPreset="slide-in-bottom"
 		>
 			<DialogContent overflow="auto" className="m-4">
