@@ -5,23 +5,16 @@ import { Fragment, useState } from "react";
 import { useRateLimit } from "./RateLimitContext";
 import TitleDetails from "./TitleDetails";
 
-const titleTypes = {
-	tv_series: "SÉRIE",
-	tv_miniseries: "MINISSÉRIE",
-	movie: "LONGA",
-	tv_movie: "LONGA",
-	short_film: "CURTA",
-};
-
 const typeBgColor = {
 	tv_series: "bg-amber-500",
 	tv_miniseries: "bg-indigo-600",
 	movie: "bg-red-600",
 	tv_movie: "bg-red-600",
 	short_film: "bg-fuchsia-600",
+	tv_special: "bg-emerald-600",
 };
 
-const TitleCard = ({ title }) => {
+const TitleCard = ({ title, t }) => {
 	const [details, setDetails] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [openDetails, setOpenDetails] = useState(false);
@@ -61,7 +54,7 @@ const TitleCard = ({ title }) => {
 					className={`w-full absolute text-center ${typeBgColor[title.type]}`}
 				>
 					<Text color="white" fontWeight="semibold">
-						{titleTypes[title.type]}
+						{t(`titleCard.${title.type}`)}
 					</Text>
 				</div>
 				<Card.Body gap="1" className="justify-center text-center">
@@ -88,6 +81,7 @@ const TitleCard = ({ title }) => {
 				open={openDetails}
 				setOpen={setOpenDetails}
 				title={details}
+				t={t}
 			/>
 		</Fragment>
 	);

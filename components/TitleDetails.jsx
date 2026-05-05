@@ -72,7 +72,7 @@ const STREAMING_SERVICES = {
 	},
 };
 
-const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
+const TitleInfo = ({ title, textAlign = "left", align = "flex-start", t }) => (
 	<Flex direction="column" align={align} textAlign={textAlign}>
 		<Text
 			fontWeight="semibold"
@@ -133,7 +133,7 @@ const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
 						{title.critic_score}%
 					</Text>
 					<Text color="gray.300" fontSize="sm">
-						Crítica
+						{t("titleDetails.critic")}
 					</Text>
 				</HStack>
 			)}
@@ -158,7 +158,7 @@ const TitleInfo = ({ title, textAlign = "left", align = "flex-start" }) => (
 	</Flex>
 );
 
-const TitleDetails = ({ open, setOpen, title }) => {
+const TitleDetails = ({ open, setOpen, title, t }) => {
 	const getServiceConfig = (serviceName) => {
 		for (const service of Object.values(STREAMING_SERVICES)) {
 			if (service.pattern?.test(serviceName)) {
@@ -314,6 +314,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 								title={title}
 								textAlign={{ base: "center", md: "left" }}
 								align={{ base: "center", md: "flex-start" }}
+								t={t}
 							/>
 						</Flex>
 					) : (
@@ -326,7 +327,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 							zIndex={3}
 							p={{ base: 4, lg: 6 }}
 						>
-							<TitleInfo title={title} textAlign="center" align="center" />
+							<TitleInfo title={title} textAlign="center" align="center" t={t} />
 						</Flex>
 					)}
 				</Box>
@@ -338,8 +339,8 @@ const TitleDetails = ({ open, setOpen, title }) => {
 						className="text-lg lg:text-2xl"
 					>
 						{groupedSources.length
-							? "Disponível nas plataformas de Streaming"
-							: "Não disponível em nenhuma plataforma de Streaming"}
+							? t("titleDetails.availableStreaming")
+							: t("titleDetails.notAvailableStreaming")}
 					</Text>
 					<Flex wrap="wrap" gap={6} justify="center" borderRadius="xl" w="full">
 						{Boolean(groupedSources.length) &&
@@ -382,11 +383,11 @@ const TitleDetails = ({ open, setOpen, title }) => {
 												{group.options.map((option, index) => {
 													const typeLabel =
 														option.type === "sub"
-															? "Assinatura"
+															? t("titleDetails.subscription")
 															: option.type === "rent"
-																? "Aluguel"
+																? t("titleDetails.rent")
 																: option.type === "buy"
-																	? "Compra"
+																	? t("titleDetails.buy")
 																	: option.type;
 
 													return (
@@ -419,7 +420,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 															>
 																{option.price
 																	? `R$ ${Number(option.price).toFixed(2).replace(".", ",")}${option.showFormat ? ` (${option.format})` : ""}`
-																	: "Incluído"}
+																	: t("titleDetails.included")}
 															</Text>
 														</Flex>
 													);
@@ -442,7 +443,7 @@ const TitleDetails = ({ open, setOpen, title }) => {
 												target="_blank"
 												rel="noreferrer"
 											>
-												Acessar
+												{t("titleDetails.access")}
 											</a>
 										</Button>
 									</Box>

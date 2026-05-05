@@ -4,7 +4,7 @@ import { LuCircleHelp } from "react-icons/lu";
 import ApiKeyDialog from "./ApiKeyDialog";
 import { useRateLimit } from "./RateLimitContext";
 import { Tooltip } from "./ui/tooltip";
-export default function RateLimitCounter() {
+export default function RateLimitCounter({ t }) {
 	const { rateLimit } = useRateLimit();
 	const { limit, remaining } = rateLimit || {};
 	const used = limit != null && remaining != null ? limit - remaining : null;
@@ -36,7 +36,7 @@ export default function RateLimitCounter() {
 					display="flex"
 					gap={4}
 				>
-					<span className="hidden lg:inline">Uso:</span>
+					<span className="hidden lg:inline">{t("rateLimit.usage")}</span>
 					{used != null && limit != null ? `${used}/${limit}` : "-/-"}
 					{keyType === "custom" && (
 						<Badge
@@ -45,12 +45,12 @@ export default function RateLimitCounter() {
 							fontSize="0.8em"
 							className="hidden lg:flex"
 						>
-							Chave customizada
+							{t("rateLimit.customKeyBadge")}
 						</Badge>
 					)}
 					<Separator orientation="vertical" />
 					<Tooltip
-						content="Clique para mais informações"
+						content={t("rateLimit.tooltip")}
 						showArrow
 						openDelay={0}
 						closeDelay={0}
@@ -71,6 +71,7 @@ export default function RateLimitCounter() {
 				onClose={() => setDialogOpen(false)}
 				currentKeyType={keyType}
 				onKeyChange={handleKeyChange}
+				t={t}
 			/>
 		</>
 	);

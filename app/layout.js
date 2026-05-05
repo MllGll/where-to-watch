@@ -15,13 +15,6 @@ const poppins = Poppins({
 	weight: ["400", "600", "700"],
 });
 
-export const metadata = {
-	title:
-		"Onde Assistir - Descubra onde seus filmes e séries favoritos estão disponíveis",
-	description:
-		"Busque rapidamente onde assistir longas, curtas e séries em streaming no Brasil.",
-};
-
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en" suppressHydrationWarning>

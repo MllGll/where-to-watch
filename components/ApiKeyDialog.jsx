@@ -19,6 +19,7 @@ import {
 	DialogTitle,
 } from "./ui/dialog";
 import { Toaster, toaster } from "./ui/toaster";
+import { Trans } from "react-i18next";
 
 const WATCHMODE_SIGNUP_URL = "https://api.watchmode.com/requestApiKey";
 
@@ -27,6 +28,7 @@ export default function ApiKeyDialog({
 	onClose,
 	currentKeyType,
 	onKeyChange,
+	t,
 }) {
 	const [inputKey, setInputKey] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -52,24 +54,22 @@ export default function ApiKeyDialog({
 				localStorage.setItem("watchmode_api_key", inputKey);
 				onKeyChange("custom");
 				toaster.create({
-					title: "Chave salva com sucesso!",
-					description: "Sua chave foi validada e armazenada.",
+					title: t("apiKeyDialog.successTitle"),
+					description: t("apiKeyDialog.successDescription"),
 					type: "success",
 				});
 				onClose();
 			} else {
 				toaster.create({
-					title: "Chave inválida",
-					description:
-						"Não foi possível validar sua chave. Verifique e tente novamente.",
+					title: t("apiKeyDialog.invalidTitle"),
+					description: t("apiKeyDialog.invalidDescription"),
 					type: "error",
 				});
 			}
 		} catch {
 			toaster.create({
-				title: "Erro na validação",
-				description:
-					"Ocorreu um erro ao validar sua chave. Tente novamente mais tarde.",
+				title: t("apiKeyDialog.errorTitle"),
+				description: t("apiKeyDialog.errorDescription"),
 				type: "error",
 			});
 		} finally {
@@ -81,14 +81,10 @@ export default function ApiKeyDialog({
 		<DialogRoot open={isOpen} onOpenChange={onClose} size="lg">
 			<DialogContent p={6} className="mx-4">
 				<DialogTitle fontWeight="bold" fontSize="xl">
-					Chave de API
+					{t("apiKeyDialog.title")}
 				</DialogTitle>
 				<DialogDescription mt={2}>
-					Este site utiliza uma <b>chave pública</b> compartilhada entre todos
-					os usuários para acessar a API do Watchmode. Como o uso é coletivo, o
-					limite de requisições pode ser atingido rapidamente. Se preferir, você
-					pode usar sua própria chave. Caso ainda não tenha uma, acesse o link
-					abaixo.
+					<Trans i18nKey="apiKeyDialog.description" components={{ bold: <strong /> }} />
 				</DialogDescription>
 				<HStack my={4}>
 					<Link
@@ -98,14 +94,14 @@ export default function ApiKeyDialog({
 						color="gray.800"
 						fontWeight="bold"
 					>
-						Obter chave no Watchmode
+						{t("apiKeyDialog.getKey")}
 						<LuExternalLink />
 					</Link>
 				</HStack>
 				<Grid templateColumns="repeat(10, 1fr)" gap="2">
 					<GridItem colSpan={typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 8}>
 						<Input
-							placeholder="Insira sua chave Watchmode aqui"
+							placeholder={t("apiKeyDialog.placeholder")}
 							value={inputKey}
 							onChange={(e) => setInputKey(e.target.value)}
 							type="text"
@@ -120,23 +116,22 @@ export default function ApiKeyDialog({
 							disabled={!inputKey}
 							className="w-full"
 						>
-							ATUALIZAR
+							{t("apiKeyDialog.update")}
 						</Button>
 					</GridItem>
 				</Grid>
 				<Status.Root colorPalette="blue" mt={2} className="items-baseline">
 					<Status.Indicator className="animate-status-pulse" />
 					{currentKeyType === "custom"
-						? "No momento você está usando uma chave privada"
-						: "No momento você está usando uma chave pública"}
+						? t("apiKeyDialog.usingPrivate")
+						: t("apiKeyDialog.usingPublic")}
 				</Status.Root>
 				{showInfo && (
 					<Alert.Root mt={2}>
 						<Alert.Indicator />
 						<Alert.Content>
 							<Alert.Description>
-								Não se preocupe, sua chave nunca será enviada para terceiros e
-								será armazenada apenas no seu navegador.
+								{t("apiKeyDialog.infoNotice")}
 							</Alert.Description>
 						</Alert.Content>
 						<CloseButton
@@ -152,10 +147,7 @@ export default function ApiKeyDialog({
 						<Alert.Indicator />
 						<Alert.Content>
 							<Alert.Description>
-								<b>
-									Ao clicar em "Atualizar", será feito um teste para validar a
-									chave através de uma requisição e consumido 1 crédito.
-								</b>
+								<b>{t("apiKeyDialog.warningNotice")}</b>
 							</Alert.Description>
 						</Alert.Content>
 						<CloseButton
