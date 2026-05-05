@@ -117,15 +117,8 @@ export default function Home() {
 				)}
 			</div>
 			<footer className="text-gray-400 absolute bottom-2 w-full text-center text-xs lg:text-sm px-4">
-				Desenvolvido por Marcello Gallante. Dados de streaming fornecidos pela{" "}
-				<a
-					href="https://watchmode.com"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="font-bold"
-				>
-					Watchmode.com
-				</a>
+				Desenvolvido por <a href="https://github.com/MllGll" target="_blank" rel="noopener noreferrer" className="font-bold">Marcello Gallante</a>. Dados de streaming fornecidos pela{" "}
+				<a href="https://watchmode.com" target="_blank" rel="noopener noreferrer" className="font-bold">Watchmode.com</a>
 			</footer>
 		</div>
 	);
