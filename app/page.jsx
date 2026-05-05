@@ -128,7 +128,7 @@ export default function Home() {
 					</Fragment>
 				)}
 
-				{searchedTitle && !titles.length && (
+				{searchedTitle && !titles.length && !loading && (
 					<EmptyState.Root>
 						<EmptyState.Content>
 							<VStack textAlign="center">
